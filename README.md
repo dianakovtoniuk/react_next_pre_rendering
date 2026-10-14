@@ -1,34 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NextEvents
+
+A small event browsing app built with Next.js (Pages Router) and TypeScript. It was built to practice routing and pre-rendering, so the data is a hardcoded list instead of a real backend.
+
+## Features
+
+- Home page with featured events
+- Page with all events and a year/month search form
+- Event detail page
+- Filtered results page (`/events/2021/5`) with validation and empty states
+
+## Routes
+
+| Route | Description | Rendering |
+| --- | --- | --- |
+| `/` | Featured events | Static (`getStaticProps`) |
+| `/events` | All events and search form | Static (`getStaticProps`) |
+| `/events/[eventId]` | Single event | Static (`getStaticProps` + `getStaticPaths`) |
+| `/events/[...slug]` | Events filtered by year and month | Client-side |
+
+## Tech Stack
+
+- Next.js 13 (Pages Router)
+- React 18
+- TypeScript
+- CSS Modules
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Other scripts:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+npm run build       # production build
+npm run start       # run the production build
+npm run typecheck   # tsc --noEmit
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Project Structure
 
-## Learn More
+```
+components/   UI, layout, event list and event detail components
+pages/        Routes
+public/       Static assets and event images
+styles/       Global styles
+dummy-data.ts Event type, mock data and helper functions
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Events live in `dummy-data.ts`, and the helper functions there act as a fake data layer.
+- The year filter only accepts values from 2021 to 2030, and the search form offers 2021 and 2022.
+- The filtered page still reads the route on the client. Moving it to `getServerSideProps` is a natural next step.
