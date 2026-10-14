@@ -12,7 +12,7 @@ function FilteredEventsPage() {
 
   const filterData = router.query.slug;
 
-  if (!filterData) {
+  if (!Array.isArray(filterData)) {
     return <p className='center'>Loading...</p>;
   }
 

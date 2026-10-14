@@ -11,7 +11,7 @@ function EventDetailPage() {
   const router = useRouter();
 
   const eventId = router.query.eventId;
-  const event = getEventById(eventId);
+  const event = typeof eventId === 'string' ? getEventById(eventId) : undefined;
 
   if (!event) {
     return (

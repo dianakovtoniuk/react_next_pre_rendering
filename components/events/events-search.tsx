@@ -1,19 +1,24 @@
 import { useRef } from 'react';
+import type { FormEvent } from 'react';
 
 import Button from '../ui/button';
 import classes from './events-search.module.css';
 
-function EventsSearch(props) {
-  const yearInputRef = useRef();
-  const monthInputRef = useRef();
+interface EventsSearchProps {
+  onSearch: (year: string, month: string) => void;
+}
 
-  function submitHandler(event) {
+function EventsSearch(props: EventsSearchProps) {
+  const yearInputRef = useRef<HTMLSelectElement>(null);
+  const monthInputRef = useRef<HTMLSelectElement>(null);
+
+  function submitHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const selectedYear = yearInputRef.current.value;
-    const selectedMonth = monthInputRef.current.value;
+    const selectedYear = yearInputRef.current!.value;
+    const selectedMonth = monthInputRef.current!.value;
 
-    props.onSearch(selectedYear, selectedMonth);    
+    props.onSearch(selectedYear, selectedMonth);
   }
 
   return (

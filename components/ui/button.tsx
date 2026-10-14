@@ -1,8 +1,15 @@
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 
 import classes from './button.module.css';
 
-function Button(props) {
+interface ButtonProps {
+  link?: string;
+  onClick?: () => void;
+  children: ReactNode;
+}
+
+function Button(props: ButtonProps) {
   if (props.link) {
     return (
       <Link href={props.link} className={classes.btn}>
